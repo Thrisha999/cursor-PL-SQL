@@ -1,0 +1,27 @@
+--Query:To create a cursor that displays the employee name and number of jobs he or she done inthe past
+
+--Pl/SQL Block:
+declare
+	cursor c1 is select ENAME,jobs from empjobs;
+	name empjobs.ENAME%type;
+	j empjobs.jobs%type;
+begin
+	open c1;
+	dbms_output.put_line('Name'||chr(9)||'No. of jobs');
+	dbms_output.put_line('-----'||chr(9)||'-----');
+	loop
+	 fetch c1 into name,j;
+	 dbms_output.put_line(name||chr(9)||j);
+	 exit when c1%notfound;
+	end loop;
+	close c1;
+end;
+/
+--output:
+Name    No. of jobs
+-----   -----
+prem    7
+yashu   9
+yashu   9
+
+PL/SQL procedure successfully completed.
